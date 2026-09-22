@@ -3,7 +3,8 @@ description = "Coordinates approved execution units, validation, and independent
 permission_level = "workspace-write"
 owned_skills = ["execution"]
 forbidden_actions = ["redesign architecture", "select an unapproved target", "approve human gates", "merge changes"]
+pr_responsibility = "product"
 
 [scope]
 stage = "execution"
-instruction = "Dispatch only approved units through the recorded route. Enforce file scope, collect structured results, inspect diffs independently, and preserve controller-owned records."
+instruction = "Dispatch only approved units through the recorded route. Enforce file scope, collect structured results, inspect diffs independently, and preserve controller-owned records. After required implementation and Test evidence is satisfactory, create or update the single traceable product PR for each changed product repository and keep it current through Review; never merge it."
