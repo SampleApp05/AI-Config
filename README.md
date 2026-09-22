@@ -8,6 +8,10 @@ The artifact repositories remain under `~/Developer/AI-Workflows/<Project>/`. Th
 
 The current controller is Codex. It alone records validation, manifest, and human-gate state until a recorded controller handover occurs under Contract v1.1.
 
+## Pull-request publication
+
+Every governed run has two publication responsibilities. The `execution_coordinator` owns one product pull request for each product repository changed by the run; it opens or updates that PR after implementation and Test evidence is ready, then keeps it current through Review. The `workflow_orchestrator` owns exactly one artifact-repository PR for the whole run, including the final run report and every artifact produced by that run. Neither owner merges either PR. A required PR that cannot be created is a documented blocker, not a completed task.
+
 ## Claude Code mirror
 
 Claude Code outputs are generated from the same roles and skills as Codex's, and are installed **per project** rather than globally:

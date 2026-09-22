@@ -68,12 +68,12 @@
     },
     "/Users/danielvelikov/.codex/agents/execution_coordinator.toml": {
       "frozen": false,
-      "sha256": "9dc3a348367189577e75191cfac1ad43ff112bea4e4b64a71ee2a44d9078e9b1",
+      "sha256": "cb0ad13c0283c871c28571b12ecb550bf295676af1623ee179bdcda1a679e0ef",
       "source": "role:execution_coordinator"
     },
     "/Users/danielvelikov/.codex/agents/execution_router.toml": {
       "frozen": false,
-      "sha256": "519066544ff2c5af097222d7854d1783d969169fda0ab950d5d22f2fe25b869b",
+      "sha256": "eedcd111c691d72b69cdc170458b2828fd6df0bef8488eba62ecb4b8ee54d7b2",
       "source": "role:execution_router"
     },
     "/Users/danielvelikov/.codex/agents/implementation_worker.toml": {
@@ -113,7 +113,7 @@
     },
     "/Users/danielvelikov/.codex/agents/workflow_orchestrator.toml": {
       "frozen": false,
-      "sha256": "1e09404222246286b172738ce12cd5a46fd7b653c0fd5d70424cad681bf3a8dd",
+      "sha256": "333066c248e74b3a4b6a286546aa5914d95d4f7de41bbf48a8f3487fd3c537ba",
       "source": "role:workflow_orchestrator"
     },
     "/Users/danielvelikov/.codex/skills/android/SKILL.md": {
@@ -168,7 +168,7 @@
     },
     "/Users/danielvelikov/.codex/skills/execution/SKILL.md": {
       "frozen": false,
-      "sha256": "49e4fb3bed2401697b93a28446f5bd4dcd20e255f16ae5d3d078e013ec9c3c3d",
+      "sha256": "c9fe36a72198b14168ad900bf11dd5a055cddf20d9b9cb0cdcc395ab1bd880e0",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/skills/stages/execution/SKILL.md"
     },
     "/Users/danielvelikov/.codex/skills/execution/agents/openai.yaml": {
@@ -218,7 +218,7 @@
     },
     "/Users/danielvelikov/.codex/skills/router/SKILL.md": {
       "frozen": false,
-      "sha256": "52239d29c5ef28aa3e1cb555ccff3eb135d027c5a58cfac9fc823e64bf0b4076",
+      "sha256": "f39b9a61cd59cbbebaefa5b518b9bbbedae419154a1e53dd71164bedfeb97e2d",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/skills/stages/router/SKILL.md"
     },
     "/Users/danielvelikov/.codex/skills/router/agents/openai.yaml": {
@@ -248,12 +248,12 @@
     },
     "/Users/danielvelikov/.codex/skills/workflow-artifacts/SKILL.md": {
       "frozen": false,
-      "sha256": "0fa401c6b4e8eb807d7da8006f0804b5eeaf662ab379e699e27178f9f420a985",
+      "sha256": "5e2de50aec0ff86990c7d80b77a0cc4d3dc60881deb818f2dcc9743b13b2ccf7",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/skills/workflow/workflow-artifacts/SKILL.md"
     },
     "/Users/danielvelikov/.codex/skills/workflow-artifacts/assets/ARTIFACT-CONTRACT-v1.1.md": {
       "frozen": false,
-      "sha256": "f2f465eb6a699490dce8baecfa1311c161f30b5234533af1cc3100a5292076d9",
+      "sha256": "a3b45e28b197b927df7ac60bb1a425e7a9a78e6f1891d2bcb49d6d41b2347535",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/contract/ARTIFACT-CONTRACT-v1.1.md"
     },
     "/Users/danielvelikov/.codex/skills/workflow-artifacts/assets/ARTIFACT-CONTRACT-v1.md": {
@@ -263,7 +263,7 @@
     },
     "/Users/danielvelikov/.codex/skills/workflow-orchestrator/SKILL.md": {
       "frozen": false,
-      "sha256": "3dea922c5722a3aabec9d764280b6611a600713cfe0a4a24df37f26d810fd219",
+      "sha256": "83b6d3a9afefe475c1b62d8cae74edf26b24abfd0436d8409854a0b0c2ee6964",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/skills/stages/workflow-orchestrator/SKILL.md"
     },
     "/Users/danielvelikov/.codex/skills/workflow-orchestrator/agents/openai.yaml": {
@@ -273,57 +273,57 @@
     },
     "/Users/danielvelikov/.codex/skills/workflow-reporting/SKILL.md": {
       "frozen": false,
-      "sha256": "6713189e62e2634de8b47e62f6fdf0e93082713b89557018a5a2b1f77119d839",
+      "sha256": "ff26dd0ecd28555ee67d1171634823fdeff75e38165ec093effe6a57db45f992",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/skills/stages/workflow-reporting/SKILL.md"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-code-reviewer.md": {
       "frozen": false,
-      "sha256": "d291a7a188cf038a8988fe9fe55af2ba9e1d26f3f85c2693c5e167f2d9fd5242",
+      "sha256": "762df9a21c06a5f80bb54791bc588eae888f2adbc0813dcac1c584e93e64d3d2",
       "source": "role:code_reviewer"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-execution-coordinator.md": {
       "frozen": false,
-      "sha256": "5c4935e8e55d62ea379ea4cf553834d2ba4a35283b363f65c2612814e594269e",
+      "sha256": "fa2e7368cd9a90f32aeafab2492f2f86af65d97032d2e82e322bb223b9a9a3e7",
       "source": "role:execution_coordinator"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-execution-router.md": {
       "frozen": false,
-      "sha256": "d2e35b6e33e57842bb4dd1e7011b15b299ec68a95c0ad22a9330b637697e83a4",
+      "sha256": "2d18079a8c3a89f7f538e373c14fe600e0d9a480ba46058964e5227eea27be3d",
       "source": "role:execution_router"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-implementation-worker.md": {
       "frozen": false,
-      "sha256": "006232e4717880d1bdfb297c4fc8bb66a0464306d0061979742915d478833a6c",
+      "sha256": "855a64288750c34244740a8f66fff1883b44e239a8ced1f84c1d9e9801e8a1ee",
       "source": "role:implementation_worker"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-intake-analyst.md": {
       "frozen": false,
-      "sha256": "ffae3d82626b9e7856f3f09f221cc57a2b1a4e962859c180e6d66c1abf3ecc9f",
+      "sha256": "ed02d78ef3aacd6184f477027db3cad38de4333ed8c839b5428078938356f0b2",
       "source": "role:intake_analyst"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-problem-analyst.md": {
       "frozen": false,
-      "sha256": "22d3e728c930d823424a15935d687f8eb2466057d9a39c274698e630ce18a4ed",
+      "sha256": "497fdc8e456338d9ed3e129f2d450a3ba7e44c94dc5387b5f8d82d6c8147749a",
       "source": "role:problem_analyst"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-requirements-engineer.md": {
       "frozen": false,
-      "sha256": "b737de1f4328162540aaff1b840537cdb266052789450455c41cf9747f95a867",
+      "sha256": "ed21937783dce399b49ec216cbad0840f0d9aa5e3f9538b09f5142c6d8f16c63",
       "source": "role:requirements_engineer"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-solution-architect.md": {
       "frozen": false,
-      "sha256": "d21b7253e81781297f8b8999ce0779cb3f0ba4632f8f6f73979465561ed7c921",
+      "sha256": "226e36cba94abdea110945530ee7b2690f6c97ca91d1d144c2c84e1680e54c30",
       "source": "role:solution_architect"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-test-engineer.md": {
       "frozen": false,
-      "sha256": "8de48817a18204bb3f9b7d408a50e6d5ecf83d5f67c77d719c372829951b9268",
+      "sha256": "de7905f1d6f3f94853b42f777a2b42411f4ae194da89f6b7a4f9f8a59e8f835f",
       "source": "role:test_engineer"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/agents/workflow-stage-work-planner.md": {
       "frozen": false,
-      "sha256": "6366317140b62e9847920f1845fd6f37de95889e5109a6c96a61daa2e6a77181",
+      "sha256": "8bb12f64734e61ef1fa9a2049fa9dbc253cfd953958261eed5e5a85999b8ca78",
       "source": "role:work_planner"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-architecture/SKILL.md": {
@@ -333,12 +333,12 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-artifacts/SKILL.md": {
       "frozen": false,
-      "sha256": "e4242c507ba9fbce161ec4f3dbd4a94c3015c524195c98d7aa718f4e9065e86e",
+      "sha256": "d56bd7dca3cb3c91b5fc7e12c5b441cd61626f095089b0a711ee58deea7bf7ad",
       "source": "skill:workflow-artifacts"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-artifacts/assets/ARTIFACT-CONTRACT-v1.1.md": {
       "frozen": false,
-      "sha256": "f2f465eb6a699490dce8baecfa1311c161f30b5234533af1cc3100a5292076d9",
+      "sha256": "a3b45e28b197b927df7ac60bb1a425e7a9a78e6f1891d2bcb49d6d41b2347535",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/contract/ARTIFACT-CONTRACT-v1.1.md"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-artifacts/assets/ARTIFACT-CONTRACT-v1.md": {
@@ -353,7 +353,7 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-controller/SKILL.md": {
       "frozen": false,
-      "sha256": "9cf6bef3d89cd396a05612201ba43010a1728fbf7787d1e5b5a18cd1b04f4b47",
+      "sha256": "8d1cf7a459dcfdb81ce7309d6fcfad791e615a56c77ed7c34d71f6728a99b66c",
       "source": "skill:workflow-controller"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-decomposition/SKILL.md": {
@@ -373,7 +373,7 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-execution/SKILL.md": {
       "frozen": false,
-      "sha256": "f42d40b7917dea69c2e4560b1bd958e99c034cfcca8ee958d51206ad702422c2",
+      "sha256": "a6152c6f439caad72545a688ba890e2ada99671078331e2cba0d07e8cb458f57",
       "source": "skill:execution"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-handoff/SKILL.md": {
@@ -393,12 +393,12 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-orchestrator/SKILL.md": {
       "frozen": false,
-      "sha256": "5188e02fe9d544e7f57d51e153f60e570aa0c05908b220609a2ba8afc44ae4c5",
+      "sha256": "0cd29f091b64dfbba290ff99dd3a66f7fd9662c87f34a43db56ab45445e5bd51",
       "source": "skill:workflow-orchestrator"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-reporting/SKILL.md": {
       "frozen": false,
-      "sha256": "ab49a50cabcc736cfc6c42ea0288dc592e1bc4c4cf0b2f94257c5a8770efe09a",
+      "sha256": "9a58ead3e63aa1576c3f9a3f61297d3829e84444110d6aa5be6b219803bfaddc",
       "source": "skill:workflow-reporting"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-requirements/SKILL.md": {
@@ -408,7 +408,7 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-router/SKILL.md": {
       "frozen": false,
-      "sha256": "9c27393b26f6e8de92fdeaba5137f269407db31db291248387aeca5eae30fc92",
+      "sha256": "dc0a55357c6de4ad749885ca19d8bfcc04703d67c1a02df2609d7c1929f712a2",
       "source": "skill:router"
     },
     "/Users/danielvelikov/Developer/AI-Workflow/generated/claude-project/.claude/skills/workflow-testing/SKILL.md": {
@@ -423,7 +423,7 @@
     },
     "/Users/danielvelikov/Developer/AI-Workflows/Atra/ARTIFACT-CONTRACT-v1.1.md": {
       "frozen": false,
-      "sha256": "f2f465eb6a699490dce8baecfa1311c161f30b5234533af1cc3100a5292076d9",
+      "sha256": "a3b45e28b197b927df7ac60bb1a425e7a9a78e6f1891d2bcb49d6d41b2347535",
       "source": "/Users/danielvelikov/Developer/AI-Workflow/contract/ARTIFACT-CONTRACT-v1.1.md"
     },
     "/Users/danielvelikov/Developer/AI-Workflows/Atra/ARTIFACT-CONTRACT-v1.md": {

@@ -24,6 +24,7 @@ REQUIRED_TARGET_FIELDS = {
 DERIVED_SOURCE_PREFIXES = ("role:", "skill:", "merge:", "mcp:")
 PERMISSION_LEVELS = {"read-only", "workspace-write"}
 WRITE_TOOL_NAMES = {"Edit", "Write", "NotebookEdit"}
+PR_RESPONSIBILITIES = {"artifacts": "workflow_orchestrator", "product": "execution_coordinator"}
 
 
 def digest(path: Path) -> str:
@@ -40,6 +41,7 @@ def shared_skill_names() -> set[str]:
 def check_roles(failures: list[str], targets: dict) -> None:
     skills = shared_skill_names()
     active_roles = set()
+    pr_owners: dict[str, str] = {}
     for path in sorted((SHARED_ROOT / "roles").glob("*.toml")):
         role = read_role(path)
         role_id = role.get("id")
@@ -52,6 +54,15 @@ def check_roles(failures: list[str], targets: dict) -> None:
             failures.append(f"{path.name}: invalid status {status}")
         if status == "active":
             active_roles.add(role_id)
+        pr_responsibility = role.get("pr_responsibility")
+        if pr_responsibility:
+            expected_role = PR_RESPONSIBILITIES.get(pr_responsibility)
+            if expected_role != role_id:
+                failures.append(f"{path.name}: invalid PR responsibility: {pr_responsibility}")
+            elif pr_responsibility in pr_owners:
+                failures.append(f"{path.name}: duplicate PR responsibility: {pr_responsibility}")
+            else:
+                pr_owners[pr_responsibility] = role_id
         for skill in role.get("owned_skills", []):
             if skill not in skills or not any(
                 (SHARED_ROOT / "skills" / category / skill / "SKILL.md").is_file()
@@ -68,6 +79,8 @@ def check_roles(failures: list[str], targets: dict) -> None:
         for role_id in record["eligible_roles"]:
             if role_id not in active_roles:
                 failures.append(f"{target_id}: eligible role is not an active role: {role_id}")
+    if pr_owners != PR_RESPONSIBILITIES:
+        failures.append("role registry must assign artifact and product PR responsibilities exactly once")
 
 
 def frontmatter(path: Path) -> dict:

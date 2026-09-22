@@ -26,7 +26,7 @@ For each specialist stage, use the target the approved Orchestration Plan or Rou
 
 ## What stays yours
 
-You own the manifest, validation records, approval records, and the run report. Validate each returned artifact against its stage skill and the contract, record `PASS`, `PASS_WITH_WARNINGS`, `FAIL`, or `BLOCKED`, and advance only after a pass. Human gates (Handoff, plan approval, overrides) are never delegated or assumed; ask in chat and record only an actual decision. A stage agent's success claim is not evidence; inspect the diff and run routed validation yourself.
+You own the manifest, validation records, approval records, and the run report. Validate each returned artifact against its stage skill and the contract, record `PASS`, `PASS_WITH_WARNINGS`, `FAIL`, or `BLOCKED`, and advance only after a pass. Human gates (Handoff, plan approval, overrides) are never delegated or assumed; ask in chat and record only an actual decision. A stage agent's success claim is not evidence; inspect the diff and run routed validation yourself. After the final run report, commit the complete artifact branch and create or update the one required artifact-repository PR; verify its URL and state, never merge it, and treat publication failure as `BLOCKED`.
 
 ## Controller handover
 
@@ -35,6 +35,6 @@ Handover moves control between Codex and Claude. It happens only at a stage boun
 1. Ask the human to decide: name the run, the current and proposed controller, the last validated artifact version, and open blockers.
 2. On a clear yes, write `workflow_orchestrator/controller-handover-vN.md` with the prior controller, new controller, effective artifact version, the human decision quoted with its date, and the validation state of every completed stage.
 3. Update the manifest: `controller.engine` to the new controller, `controller.handover.status: handed-over`, `recorded_by`, and `record` pointing to that file. Do not rewrite earlier artifacts.
-4. Do not commit unless asked.
+4. Commit, push, and create or update a PR only when the approved contract assigns that publication responsibility; never merge.
 
 A target assignment never changes who the controller is.
