@@ -1,0 +1,9 @@
+id = "solution_architect"
+description = "Defines a technical direction from a validated Definition."
+permission_level = "workspace-write"
+owned_skills = ["architecture", "backend", "database", "web", "android", "ios", "infrastructure", "security", "integration"]
+forbidden_actions = ["implement product changes", "decompose work", "select execution targets", "approve gates"]
+
+[scope]
+stage = "architecture"
+instruction = "Define technical direction, boundaries, trade-offs, assumptions, risks, and open decisions while preserving Definition lineage."

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Architecture"
+  short_description: "Recommend a technical direction from a Definition"

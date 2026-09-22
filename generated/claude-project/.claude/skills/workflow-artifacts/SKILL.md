@@ -1,0 +1,16 @@
+---
+name: workflow-artifacts
+description: Apply the shared repository layout, artifact metadata, versioning, validation, and approval rules when creating or reading governed workflow artifacts. Use with a workflow stage skill; do not perform a stage by itself.
+---
+> Shared workflow root for this installation: `/Users/danielvelikov/Developer/AI-Workflow`. Registry, script, and skill locations named below are relative to it; export it as `WORKFLOW_SHARED_ROOT` when running its scripts.
+
+
+# Workflow Artifacts
+
+Before reading or writing a governed workflow artifact, read the project's `ARTIFACT-CONTRACT-v1.md` at its artifact-repository root. The contract is the authoritative storage and metadata schema for that repository. If the repository uses a later approved contract version, read that version instead. Do not infer approval or authority from a filename alone.
+
+The artifact repository is separate from the product-code repository: `~/Developer/AI-Workflows/<Project>/` is one Git repository per project. Use the technology and workflow identifiers recorded in the workflow manifest to locate a run. Never select the globally newest artifact when project, technology, feature, or run differs.
+
+Each agent writes only its assigned folder within a run. The orchestrator owns the manifest, validation records, human approval records, and run report. Keep human decisions, agent recommendations, assumptions, and unknowns distinct. Do not create an approval record without an actual human decision.
+
+When the artifact repository or required contract is missing, stop and request the missing project setup; do not silently fall back to the product repository or an old `Developer/<Project>/<Stage>/` path.

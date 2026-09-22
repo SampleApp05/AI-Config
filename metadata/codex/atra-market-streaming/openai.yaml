@@ -1,0 +1,3 @@
+interface:
+  display_name: "Atra Market Streaming"
+  short_description: "Build ATRA market-data streaming"

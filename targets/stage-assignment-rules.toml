@@ -1,0 +1,38 @@
+schema_version = 1
+
+[human_gates]
+stages = ["handoff", "orchestration-plan-approval"]
+rule = "Human-gated stages are never delegated to a local or external model target."
+
+[assignment]
+required_factors = ["capability_fit", "risk", "context_size", "health", "availability", "capacity", "independence"]
+record_fields = ["stage", "role", "target", "rationale", "fallback_chain", "health_observation", "scope"]
+no_static_stage_preferences = true
+
+[ollama]
+rule = "An Ollama target is eligible only when the unit fits every registered hard limit and is independently verifiable."
+
+[review_independence]
+rule = "When another capable healthy target exists, code review must not use the target that implemented the reviewed unit."
+
+[scope]
+rule = "Artifact authoring writes only the exact assigned artifact path. Execution writes only recorded allowed files. A post-run diff violation fails the dispatch."
+
+[monitoring]
+# No turn limit. A run is stopped only when it stalls (no event for idle_timeout_seconds), exceeds the wall-clock backstop
+# (0 disables it), or the human cancels it. Orchestrators check progress about every status_poll_seconds.
+idle_timeout_seconds = 1800
+max_wall_seconds = 14400
+local_max_wall_seconds = 1800
+status_poll_seconds = 1200
+usage_poll_seconds = 300
+
+[usage]
+# Suspend a run when the remaining headroom of a guarded window falls below this fraction, then resume the same session
+# after the window resets. A blocking window (for example weekly) cannot be waited out, so the job stops for a human decision.
+suspend_when_headroom_below = 0.10
+guarded_windows = ["five_hour"]
+blocking_windows = ["seven_day"]
+resume_buffer_seconds = 120
+max_suspensions = 12
+usage_cache_seconds = 600

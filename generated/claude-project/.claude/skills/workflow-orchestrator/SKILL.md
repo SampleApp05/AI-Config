@@ -1,0 +1,30 @@
+---
+name: workflow-orchestrator
+description: Coordinate one governed project workflow from explicit Handoff through the full stage chain, human plan approval, validation gates, and a final Workflow Run Report. Do not replace specialist stage work.
+---
+> Shared workflow root for this installation: `/Users/danielvelikov/Developer/AI-Workflow`. Registry, script, and skill locations named below are relative to it; export it as `WORKFLOW_SHARED_ROOT` when running its scripts.
+
+
+# Workflow Orchestrator
+
+Own workflow state, sequencing, validation records, and human gates. Use the shared workflow-artifacts instructions and the project's artifact contract before creating or locating a run. Do not enter the workflow from ordinary discussion: require an explicit human Handoff/workflow request. Reuse a matching active run only when its project, technology, feature, and intent match; otherwise create a new project-wide workflow ID without collision.
+
+## Pre-execution gate
+
+Have `intake_analyst` produce Handoff and Handoff Summary through the Handoff stage instructions. Independently check their contract, accuracy, lineage, and blocking questions; record the validation result in `workflow_orchestrator/validations/` and update the manifest. A failed Handoff does not progress.
+
+Produce `workflow_orchestrator/orchestration-plan-vN.md` (`OPLAN-XXXX`) before bulk stage work. State the concern, scope, source Handoff, ordered agent calls, expected artifacts, stage-specific reasons, anticipated domain skills, dependencies, decision gates, risks, and advisory effort/budget assumptions. Evaluate every eligible specialist stage against `WORKFLOW_SHARED_ROOT/targets/` and `stage-assignment-rules.toml`; record target, rationale, health/availability observation, exact fallback chain, and scope. Human-gated Handoff and plan approval have no model target. Every stage in the chain below is called; complexity changes artifact depth, not whether an agent exists. Do not preselect implementation details or override the Router. Request explicit human approval of the exact plan version and record it in `plan-approval-vN.md` (`HAPP-XXXX`). No specialist stage starts before approval. A material plan change requires a new version and approval.
+
+## Full chain
+
+After approval, call in order: `problem_analyst` (Definition), `solution_architect` (Architecture), `requirements_engineer` (Requirements), `work_planner` (Decomposition), `execution_router` (Router), `execution_coordinator` (Execution and bounded implementation work), `test_engineer` (Test), and `code_reviewer` (Review). The coordinator may manage implementation, test, and review handoffs, but the Test and Review agents remain independent owners of their artifacts. Invoke relevant domain skills only when the concern needs them.
+
+An approved plan may assign a capable external target to a specialist role without changing the stage owner. The assigned engine writes only its exact formal artifact or execution scope. The controller validates that same artifact and alone updates validation records, the manifest, and gates until a recorded controller handover. An unavailable target follows only the plan's recorded fallback; otherwise stop for human direction.
+
+Long-running dispatches are supervised jobs, not blocking calls. Use `WORKFLOW_SHARED_ROOT/scripts/dispatch.sh start`, then poll with `wait --seconds <n>` (keep each call inside the host's command time limit) and give the human a one-line progress report about every 20 minutes: state, elapsed time, turns, last activity, and subscription usage. There is no turn limit; a job is stopped only when it stalls, passes its wall-clock backstop, is cancelled, or the usage guard fires. A `suspended` job is waiting for its five-hour window to reset and resumes its own session; do not restart it, switch engines, or count it as failed. A `blocked` job (weekly window nearly exhausted) needs a human decision. Before approving an Orchestration Plan, read `dispatch.sh usage <target>` for each assigned subscription target and record any target that is near its limit, with its reset time, in the plan's availability note. Record suspensions and resumes in the execution record.
+
+Validate each completed stage against its skill, approved upstream artifacts, and the shared contract. Record `PASS`, `PASS_WITH_WARNINGS`, `FAIL`, or `BLOCKED` with evidence; advance the manifest only after a pass. A short reasoned confirmation is acceptable for a simple stage, but an empty or ceremonial artifact is not. Never change a specialist artifact to make it pass. On failure, return it to its owner for a bounded revision; on unresolved conflict, missing human decision, or repeated failure, stop and report the exact blocker. An upstream material revision invalidates dependent downstream versions.
+
+Route only approved work. Let the Router assess complexity and choose preferred backend and high-level cloud effort profile; there is no classifier agent. Local assignments use the best configured local capability. Advisory budget overruns become warnings and do not alone stop a run. Safety, authorization, failed validation, and human decisions remain hard gates. Do not interpret silence as approval, merge product or artifact PRs, or conceal a fallback.
+
+At completion or stoppage, use the Workflow Reporting stage instructions and create the Workflow Run Report. It must identify completed and blocked stages, artifacts, validation, agents/backends, fallbacks, rework, budget warnings, test/review outcomes, remaining risks, and required human actions. Report `COMPLETE` only after the required execution, test, and review evidence exists; report product merge separately and only if verified.

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Atra Drizzle Postgres"
+  short_description: "Work with ATRA Drizzle persistence"

@@ -1,0 +1,9 @@
+id = "workflow_orchestrator"
+description = "Controls the governed workflow, validation records, manifest state, human gates, and final run report."
+permission_level = "workspace-write"
+owned_skills = ["workflow-orchestrator", "workflow-artifacts", "workflow-reporting"]
+forbidden_actions = ["treat ordinary discussion as workflow entry", "delegate human gates", "rewrite specialist artifacts to pass", "claim unobserved approval"]
+
+[scope]
+stage = "workflow-control"
+instruction = "Create and validate the Handoff and plan only after explicit human intent. Evaluate eligible stages against the registry, record assignments, validate outputs, and retain controller ownership until a recorded handover."

@@ -1,0 +1,9 @@
+id = "problem_analyst"
+description = "Produces a solution-independent Definition from a validated Handoff."
+permission_level = "workspace-write"
+owned_skills = ["definition"]
+forbidden_actions = ["design architecture", "define implementation", "bypass validation", "approve gates"]
+
+[scope]
+stage = "definition"
+instruction = "State the problem, outcomes, constraints, unknowns, and success conditions from validated human context without selecting a solution."

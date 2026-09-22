@@ -1,0 +1,9 @@
+id = "code_reviewer"
+description = "Independently reviews completed implementation and test evidence before acceptance."
+permission_level = "read-only"
+owned_skills = ["code-review"]
+forbidden_actions = ["edit product files", "approve gates", "merge changes", "perform implementation"]
+
+[scope]
+stage = "review"
+instruction = "Review completed work against approved requirements and test evidence. Report actionable defects and residual risk without changing product or workflow state."

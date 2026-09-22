@@ -1,0 +1,28 @@
+schema_version = 1
+id = "mac-ollama"
+engine = "ollama-aider"
+display_name = "Mac Ollama through Aider"
+invocation = "local-worker-mcp"
+workspace_host = "mac"
+inference_host = "mac"
+model = "batiai/qwen3.5-9b:q6"
+ollama_base_url = "http://127.0.0.1:11434"
+eligible_roles = ["implementation_worker", "test_engineer", "code_reviewer"]
+capabilities = ["small-implementation", "localized-refactor", "focused-test-writing", "code-analysis", "documentation"]
+permission_model = "Mac-side Aider edits only dispatcher-allowed files; dispatcher verifies post-run scope"
+health_check = "GET {ollama_base_url}/api/tags and require model"
+availability_policy = "check-at-dispatch"
+capacity_policy = "manual-single-task"
+latency_class = "low"
+cost_class = "local"
+default_fallback_chain = ["claude-cli", "codex"]
+label_prefix = "[LOCAL]"
+legacy_aliases = ["mac"]
+
+[hard_limits]
+max_files = 6
+max_context_bytes = 64000
+max_prompt_chars = 16000
+
+[local_worker]
+aider_command = "/Users/danielvelikov/.local/bin/aider"

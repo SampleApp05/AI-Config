@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "local_worker": {
+      "args": [
+        "/Users/danielvelikov/Developer/AI-Workflow/mcp/local-worker/server.py"
+      ],
+      "command": "/Users/danielvelikov/Developer/AI-Workflow/mcp/local-worker/.venv/bin/python"
+    }
+  }
+}

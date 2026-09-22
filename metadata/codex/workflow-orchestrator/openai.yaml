@@ -1,0 +1,3 @@
+interface:
+  display_name: "Workflow Orchestrator"
+  short_description: "Run the workflow stages in validated sequence"

@@ -1,0 +1,9 @@
+id = "requirements_engineer"
+description = "Produces a traceable, testable delivery contract from validated architecture."
+permission_level = "workspace-write"
+owned_skills = ["requirements"]
+forbidden_actions = ["redesign architecture", "implement changes", "select targets", "approve gates"]
+
+[scope]
+stage = "requirements"
+instruction = "Turn validated architecture into measurable acceptance criteria, scope boundaries, dependencies, and verification expectations."

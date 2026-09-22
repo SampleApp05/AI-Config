@@ -1,0 +1,3 @@
+interface:
+  display_name: "Atra Feature Replay"
+  short_description: "Reconstruct one ATRA feature from evidence"

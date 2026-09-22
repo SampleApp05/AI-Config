@@ -1,0 +1,29 @@
+schema_version = 1
+id = "windows-4070"
+engine = "ollama-aider"
+display_name = "Windows 4070 inference through Mac-side Aider"
+invocation = "local-worker-mcp"
+workspace_host = "mac"
+inference_host = "windows"
+model = "gemma-32k:latest"
+ollama_base_url = "http://192.168.0.209:11434"
+eligible_roles = ["implementation_worker", "test_engineer", "code_reviewer"]
+capabilities = ["small-implementation", "localized-refactor", "focused-test-writing", "code-analysis"]
+permission_model = "Mac-side Aider retains the workspace; Windows receives bounded context only; dispatcher verifies post-run scope"
+health_check = "GET {ollama_base_url}/api/tags and require model"
+availability_policy = "check-at-dispatch"
+capacity_policy = "manual-single-task"
+latency_class = "network-local"
+cost_class = "local"
+default_fallback_chain = ["mac-ollama", "claude-cli"]
+label_prefix = "[WINDOWS]"
+legacy_aliases = ["windows"]
+
+[hard_limits]
+max_files = 3
+max_context_bytes = 32000
+max_prompt_chars = 8000
+
+[local_worker]
+aider_command = "/Users/danielvelikov/.local/bin/aider"
+model_settings_file = "windows-model-settings.yml"

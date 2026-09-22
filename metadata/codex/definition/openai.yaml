@@ -1,0 +1,3 @@
+interface:
+  display_name: "Definition"
+  short_description: "Define a workflow problem from a validated handoff"

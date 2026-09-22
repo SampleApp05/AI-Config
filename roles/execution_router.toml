@@ -1,0 +1,9 @@
+id = "execution_router"
+description = "Routes validated execution units to safe capable targets with fallbacks."
+permission_level = "workspace-write"
+owned_skills = ["router"]
+forbidden_actions = ["implement product changes", "override deterministic target rules", "approve gates", "invent target facts"]
+
+[scope]
+stage = "router"
+instruction = "Evaluate each approved execution unit against the target registry and assignment rules. Record the selected target, rationale, availability condition, scope, and fallback chain."

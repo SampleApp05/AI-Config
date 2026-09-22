@@ -1,0 +1,3 @@
+interface:
+  display_name: "Atra Wallet Auth"
+  short_description: "Work with ATRA wallet authentication"

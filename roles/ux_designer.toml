@@ -1,0 +1,11 @@
+id = "ux_designer"
+description = "Reserved: owns UX and design-system stages for Claude-controlled workflows."
+status = "reserved"
+owner_engine = "claude"
+permission_level = "workspace-write"
+owned_skills = []
+forbidden_actions = ["approve gates", "change product code", "act before its stage skill and contract stage are defined"]
+
+[scope]
+stage = "ux-design"
+instruction = "Reserved for a later definition. Not dispatchable and not generated for any engine until its stage skill, artifact prefix, and assignment rules exist."

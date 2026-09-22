@@ -1,0 +1,26 @@
+schema_version = 1
+id = "codex"
+engine = "codex-cli"
+display_name = "Codex CLI"
+invocation = "codex exec --json"
+workspace_host = "mac"
+inference_host = "openai"
+eligible_roles = ["problem_analyst", "solution_architect", "requirements_engineer", "work_planner", "execution_router", "implementation_worker", "test_engineer", "code_reviewer"]
+capabilities = ["formal-stage-artifact-authoring", "architecture", "cross-service-analysis", "implementation", "testing", "independent-review"]
+permission_model = "CLI sandbox and approval policy; dispatcher verifies post-run scope"
+health_check = "codex --version"
+binary_paths = ["/Applications/ChatGPT.app/Contents/Resources/codex"]
+availability_policy = "check-at-dispatch"
+capacity_policy = "manual-single-task"
+latency_class = "medium"
+cost_class = "cloud-managed"
+default_fallback_chain = ["claude-cli", "mac-ollama"]
+label_prefix = "[CODEX]"
+
+[hard_limits]
+max_files = 100
+max_context_bytes = 800000
+max_prompt_chars = 100000
+
+[permissions]
+write_roots = ["/Users/danielvelikov/Developer"]

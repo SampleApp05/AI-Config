@@ -1,0 +1,3 @@
+interface:
+  display_name: "Decomposition"
+  short_description: "Break Requirements into a dependency-aware work graph"
