@@ -14,6 +14,10 @@ Before each gate, the orchestrator posts the concise plan or execution summary a
 
 The relay stores full provider streams and changed-file audits in private local sidecars; only compact worker/flow-control state enters chat. Usage suspension preserves a checkpoint and pauses new scheduling. A live slow worker is not silently killed or rerouted. A local worker has no default task timeout; any explicit unit deadline needs human approval.
 
+### Claude host authentication
+
+Claude stages require the host's existing Claude CLI login. Before a `claude-cli` dispatch, the controller runs a minimal `claude -p` readiness check outside Codex's workspace sandbox, then launches `submit.py`—and any later `resume.py` continuation—with the same narrowly scoped host access. This preserves the relay's artifact/path audit while allowing each child process to see the authenticated CLI session. Polling remains sandboxed. Never copy credentials into the workspace, change `HOME`, or grant broad shell/Python access; use a reusable approval limited to the shared workflow launchers when available.
+
 ## Checks and generation
 
 Run `python3 -m unittest discover -s scripts -p 'test_*.py'` and `python3 -m unittest discover -s mcp/local-worker -p 'test_*.py'` from this repository. `scripts/sync.sh` regenerates Codex and Claude skill copies plus contract assets; inspect planned outputs before using it on a workspace with active user changes. Never merge or force-push product or artifact PRs as part of sync.
