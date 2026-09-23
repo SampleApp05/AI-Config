@@ -26,14 +26,14 @@ STAGE_SKILLS = [
     "workflow-reporting", "implementation", "intake",
 ]
 DOMAIN_SKILLS = ["android", "backend", "database", "infrastructure", "integration", "ios", "security", "web"]
-WORKFLOW_SKILLS = ["workflow-api-documentation", "workflow-artifacts"]
+WORKFLOW_SKILLS = ["workflow-api-documentation", "workflow-artifacts", "workflow-help"]
 ATRA_SKILLS = [
     "atra-drizzle-postgres", "atra-feature-replay", "atra-market-streaming",
     "atra-service-platform", "atra-wallet-auth",
 ]
 FROZEN_SKILLS = {"ios"}
 # Claude project bundle: workflow-namespaced skills and stage agents, installed per project rather than globally.
-CLAUDE_BUNDLE_WORKFLOW_SKILLS = ["workflow-artifacts", "workflow-dispatch", "workflow-controller"]
+CLAUDE_BUNDLE_WORKFLOW_SKILLS = ["workflow-artifacts", "workflow-dispatch", "workflow-controller", "workflow-help"]
 CONTROLLER_ROLE = "workflow_orchestrator"  # runs as the main-session controller skill, not as a subagent
 READ_ONLY_TOOLS = "Read, Glob, Grep, Bash"
 WRITE_TOOLS = "Read, Edit, Write, Glob, Grep, Bash"
@@ -205,7 +205,7 @@ def build_claude_bundle(outputs: dict[str, dict]) -> None:
         write_text_output(render_claude_skill(skill_source("stages", skill), name), skills_root / name / "SKILL.md", outputs, f"skill:{skill}")
     for skill in CLAUDE_BUNDLE_WORKFLOW_SKILLS:
         write_text_output(render_claude_skill(skill_source("workflow", skill), skill), skills_root / skill / "SKILL.md", outputs, f"skill:{skill}")
-    for version in ("ARTIFACT-CONTRACT-v1.md", "ARTIFACT-CONTRACT-v1.1.md"):
+    for version in ("ARTIFACT-CONTRACT-v1.md", "ARTIFACT-CONTRACT-v1.1.md", "ARTIFACT-CONTRACT-v1.2.md"):
         copy_output(SHARED_ROOT / "contract" / version, skills_root / "workflow-artifacts" / "assets" / version, outputs)
     for role_path in sorted((SHARED_ROOT / "roles").glob("*.toml")):
         role = read_role(role_path)
@@ -240,6 +240,10 @@ def installed_projects() -> list[str]:
 def generate(installs: list[str] | None = None) -> dict[str, dict]:
     outputs: dict[str, dict] = {}
     codex_skills = CODEX_ROOT / "skills"
+    help_command = USER_ROOT / ".local" / "bin" / "workflow-help"
+    copy_output(SHARED_ROOT / "scripts" / "workflow-help", help_command, outputs)
+    if not DRY_RUN:
+        help_command.chmod(0o755)
     for skill in STAGE_SKILLS:
         copy_output(skill_source("stages", skill), codex_skills / skill / "SKILL.md", outputs)
     for skill in DOMAIN_SKILLS:
@@ -254,6 +258,11 @@ def generate(installs: list[str] | None = None) -> dict[str, dict]:
     copy_output(
         SHARED_ROOT / "contract" / "ARTIFACT-CONTRACT-v1.1.md",
         codex_skills / "workflow-artifacts" / "assets" / "ARTIFACT-CONTRACT-v1.1.md",
+        outputs,
+    )
+    copy_output(
+        SHARED_ROOT / "contract" / "ARTIFACT-CONTRACT-v1.2.md",
+        codex_skills / "workflow-artifacts" / "assets" / "ARTIFACT-CONTRACT-v1.2.md",
         outputs,
     )
     for metadata in (SHARED_ROOT / "metadata" / "codex").glob("*/openai.yaml"):
@@ -284,6 +293,7 @@ def generate(installs: list[str] | None = None) -> dict[str, dict]:
 
     copy_output(SHARED_ROOT / "contract" / "ARTIFACT-CONTRACT-v1.md", ATRA_ARTIFACT_ROOT / "ARTIFACT-CONTRACT-v1.md", outputs)
     copy_output(SHARED_ROOT / "contract" / "ARTIFACT-CONTRACT-v1.1.md", ATRA_ARTIFACT_ROOT / "ARTIFACT-CONTRACT-v1.1.md", outputs)
+    copy_output(SHARED_ROOT / "contract" / "ARTIFACT-CONTRACT-v1.2.md", ATRA_ARTIFACT_ROOT / "ARTIFACT-CONTRACT-v1.2.md", outputs)
 
     build_claude_bundle(outputs)
     for project in (installed_projects() if installs is None else installs):

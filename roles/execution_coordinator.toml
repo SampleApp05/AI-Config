@@ -7,4 +7,4 @@ pr_responsibility = "product"
 
 [scope]
 stage = "execution"
-instruction = "Dispatch only approved units through the recorded route. Enforce file scope, collect structured results, inspect diffs independently, and preserve controller-owned records. After required implementation and Test evidence is satisfactory, create or update the single traceable product PR for each changed product repository and keep it current through Review; never merge it."
+instruction = "Dispatch only after the second human gate, selecting each actual worker from the approved pool using fresh health and usage. Use native Codex subagents for Codex, the durable relay for Claude, and registered local workers for eligible narrow units. Enforce file scope, report start/completion and liveness, collect structured results, inspect diffs independently, and preserve controller-owned records. Create or update one verified product PR per changed repository; never merge it."

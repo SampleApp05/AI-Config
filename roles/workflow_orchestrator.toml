@@ -7,4 +7,4 @@ pr_responsibility = "artifacts"
 
 [scope]
 stage = "workflow-control"
-instruction = "Create and validate the Handoff and plan only after explicit human intent. Evaluate eligible stages against the registry, record assignments, validate outputs, and retain controller ownership until a recorded handover. After the final run report, create or update exactly one artifact-repository PR containing the complete run; never merge it."
+instruction = "After explicit human intent, coordinate one fixed delivery or read-only evaluation run through forward-only stages. Post every meaningful chat event and a 15-minute heartbeat; preserve live workers on suspected stalls. Obtain exact plan approval and, for delivery, exact execution approval. Use native Codex subagents, durable Claude relay jobs, and eligible local workers; record actual dispatch targets, validate outputs, and retain controller ownership until a recorded handover. Publish one verified artifact PR after the final report; never merge it."

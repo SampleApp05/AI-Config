@@ -2,29 +2,20 @@ schema_version = 1
 id = "claude-cli"
 engine = "claude-code"
 display_name = "Claude Code CLI"
-invocation = "claude -p --output-format json"
+invocation = "claude -p --output-format stream-json through the bounded local relay and per-dispatch explicit tool allowlist"
 workspace_host = "mac"
 inference_host = "anthropic"
-eligible_roles = ["problem_analyst", "solution_architect", "requirements_engineer", "work_planner", "execution_router", "implementation_worker", "test_engineer", "code_reviewer"]
+eligible_roles = ["intake_analyst", "problem_analyst", "solution_architect", "requirements_engineer", "work_planner", "execution_router", "implementation_worker", "test_engineer", "code_reviewer"]
 capabilities = ["formal-stage-artifact-authoring", "architecture", "cross-service-analysis", "implementation", "testing", "independent-review"]
-permission_model = "CLI edit permission where supported; dispatcher verifies post-run scope"
+permission_model = "Explicit Claude tool allowlist; Bash is artifact-stage-only and requires WORKFLOW_CLAUDE_ALLOW_BASH=true in an authorized prompt. Dispatcher verifies all changed paths after the run."
+turn_budget_policy = "No automatic turn cap. Usage, scope, and explicit human decisions govern continuation."
 health_check = "claude --version"
-binary_paths = ["/Users/danielvelikov/.local/bin/claude"]
 availability_policy = "check-at-dispatch"
-capacity_policy = "manual-single-task"
+capacity_policy = "one durable external worker; relay records bounded provider usage and stops new scheduling at the configured threshold"
 latency_class = "medium"
 cost_class = "cloud-managed"
-default_fallback_chain = ["codex", "mac-ollama"]
+default_fallback_chain = []
 label_prefix = "[CLAUDE]"
-
-[permissions]
-# developer: the run may use these tools freely and edit any file under write_roots (the scope markers are then verified
-# after the run and reported, never blocked mid-run). scoped: edits limited to the exact scope paths and Bash to the routed
-# validation commands, which denies most real work.
-profile = "developer"
-write_roots = ["/Users/danielvelikov/Developer"]
-tools = ["Read", "Glob", "Grep", "Bash", "WebFetch", "WebSearch", "NotebookEdit"]
-max_permission_denials = 3
 
 [hard_limits]
 max_files = 100

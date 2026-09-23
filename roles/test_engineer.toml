@@ -6,4 +6,4 @@ forbidden_actions = ["silently change production behavior", "approve gates", "me
 
 [scope]
 stage = "test"
-instruction = "Design and run proportionate checks against actual work, classify failures, and report observed evidence."
+instruction = "In delivery, test actual work against approved requirements; in evaluation, inspect and run existing checks read-only against the verified baseline. Classify failures, edge cases, coverage gaps, and evidence limits without silently changing production behavior."

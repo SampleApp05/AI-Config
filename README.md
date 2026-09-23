@@ -1,51 +1,19 @@
 # AI Workflow shared source
 
-This directory is the engine-neutral source of truth for the governed workflow.
+This repository holds the maintained skill, target, contract, local-worker, and adapter sources. The active Codex workflow root is `~/.codex/AI-Workflow`; governed run artifacts remain only in `~/Developer/AI-Workflows/<Project>/`. `scripts/sync.sh` generates client skill/agent copies from this source. Do not use older generated instructions as workflow authority.
 
-Client-specific files under `.codex`, `.claude`, and project repositories are generated compatibility outputs. Do not edit generated files directly; run `scripts/sync.sh` and use `scripts/parity-check.sh` to validate them.
+## Modes and gates
 
-The artifact repositories remain under `~/Developer/AI-Workflows/<Project>/`. This directory is the workflow definition root, not an artifact repository.
+Delivery runs Handoff → plan approval → Definition → Architecture → Requirements → Decomposition → Routing → execution approval → Execution → Test → Review → Report. Evaluation runs Handoff → plan approval → Definition → Architecture → Requirements → read-only Test → read-only Review → Report. A run moves forward only; late material discoveries become blockers or separately approved follow-ups, not stage loops. Contract v1.2 records these rules and adds controller event/heartbeat evidence. Existing runs retain their original contract.
 
-The current controller is Codex. It alone records validation, manifest, and human-gate state until a recorded controller handover occurs under Contract v1.1.
+Before each gate, the orchestrator posts the concise plan or execution summary and asks for an explicit choice. Every stage/worker start and completion, gate, validation, fallback, usage transition, blocker, and PR receives a compact chat event. A thread-attached heartbeat posts status every 15 minutes, even if unchanged. At 15 minutes without confirmed activity it notes the silence; at 30 minutes it reports `STALLED_SUSPECTED` while keeping the worker alive. Human intervention is requested only when useful, with a 15-minute wait/report option. No automatic turn, wall-clock, or inactivity limit is imposed on workflow tasks.
 
-## Pull-request publication
+## Targets
 
-Every governed run has two publication responsibilities. The `execution_coordinator` owns one product pull request for each product repository changed by the run; it opens or updates that PR after implementation and Test evidence is ready, then keeps it current through Review. The `workflow_orchestrator` owns exactly one artifact-repository PR for the whole run, including the final run report and every artifact produced by that run. Neither owner merges either PR. A required PR that cannot be created is a documented blocker, not a completed task.
+`workflow-help` lists the active agents, role preferences, and capabilities. Codex management/infrastructure and other Codex-targeted work use native subagents, never nested `codex exec`. Claude is preferred for architecture and decomposition and runs through the durable relay (`~/.codex/AI-Workflow/scripts/dispatch.sh`, `submit.py`, `poll.py`, and verified `resume.py`). Codex is preferred for Requirements. Implementation and focused test-writing workers are selected at dispatch from the approved pool after fresh health and usage checks. Both registered local workers remain configured; their endpoints and models were preserved. Formal Test/Review are independent, with opposite-engine review preferred after cloud implementation.
 
-## Claude Code mirror
+The relay stores full provider streams and changed-file audits in private local sidecars; only compact worker/flow-control state enters chat. Usage suspension preserves a checkpoint and pauses new scheduling. A live slow worker is not silently killed or rerouted. A local worker has no default task timeout; any explicit unit deadline needs human approval.
 
-Claude Code outputs are generated from the same roles and skills as Codex's, and are installed **per project** rather than globally:
+## Checks and generation
 
-```
-scripts/sync.sh --install-claude <project directory>   # copy the bundle into <dir>/.claude and merge our MCP server into <dir>/.mcp.json
-scripts/sync.sh --forget-claude <project directory>    # stop tracking an install (files stay in place)
-```
-
-The bundle (`generated/claude-project/`) contains one `workflow-stage-<role>` subagent per active role except `workflow_orchestrator`, `workflow-`-prefixed stage skills, `workflow-dispatch` (call any registered target through `scripts/dispatch.sh`), `workflow-controller` (main-session controller that honours `controller.engine` in the run manifest), and the shared `local_worker` MCP server (`mcp/local-worker/.venv`, created from `requirements.txt`). Subagents cannot spawn subagents, so the controller is a skill that calls stage agents one at a time. Read-only roles get `permissionMode: plan` and no write tools.
-
-Domain skills (`backend`, `database`, ...) stay installed globally under `~/.claude/skills`. Reserved roles (`status = "reserved"`, currently `ux_designer`) are not generated for any engine.
-
-## Checks
-
-```
-scripts/parity-check.sh          # registry, roles, skills, generated files vs. current sources, Claude bundle
-python3 scripts/test_dispatch.py # dispatcher dry-run against mocked targets: scope, timeout, fallback, limits
-```
-
-## Long-running dispatch and usage guard
-
-`scripts/dispatch.sh` runs every target as a supervised job. There is no turn limit.
-
-```
-scripts/dispatch.sh start  <target> <label> <mode> <prompt> <artifact-root> <product-root>   # detached, prints job_id
-scripts/dispatch.sh wait   <job-id> --seconds 300      # block up to N seconds; exit 10 running, 11 suspended, else terminal
-scripts/dispatch.sh status <job-id>                    # state, turns, last activity, usage, resume time
-scripts/dispatch.sh cancel <job-id>
-scripts/dispatch.sh usage  <target>                    # five-hour and weekly windows and the suspend decision
-```
-
-Policy lives in `targets/stage-assignment-rules.toml` (`[monitoring]`, `[usage]`): stall timeout (30 min without output), wall-clock backstop (4 h, 0 disables), status cadence (20 min), and the usage guard (suspend below 10% headroom in the five-hour window, block below 10% in the weekly window). A suspended job resumes its own Claude or Codex session after the window resets. Job state is in `state/jobs/` (git-ignored). Claude reports usage on its stream (`rate_limit_event`); Codex is read through `codex app-server` (`account/rateLimits/read`), so no model call is spent on it.
-
-### Claude permissions
-
-`targets/claude-cli.toml` `[permissions]` sets the profile. `developer` (default) allows Bash, web tools, and edits anywhere under `write_roots` (`~/Developer`), and passes those directories with `--add-dir`; without both, the CLI refuses ordinary commands such as `git add`, `mkdir`, `python3`, or `ls` on a sibling folder, and the run wastes usage. Denials are counted and the job stops at `max_permission_denials`. `scoped` restricts edits and Bash to the exact scope markers.
+Run `python3 -m unittest discover -s scripts -p 'test_*.py'` and `python3 -m unittest discover -s mcp/local-worker -p 'test_*.py'` from this repository. `scripts/sync.sh` regenerates Codex and Claude skill copies plus contract assets; inspect planned outputs before using it on a workspace with active user changes. Never merge or force-push product or artifact PRs as part of sync.

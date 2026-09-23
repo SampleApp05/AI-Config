@@ -17,7 +17,7 @@ def main() -> None:
     parser.add_argument("repository")
     parser.add_argument("prompt_file", type=Path)
     parser.add_argument("--allowed-file", action="append", required=True)
-    parser.add_argument("--timeout-seconds", type=int, default=900)
+    parser.add_argument("--timeout-seconds", type=int, default=None)
     args = parser.parse_args()
     result = run_local_worker(
         args.label,

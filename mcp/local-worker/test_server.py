@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
@@ -50,6 +51,15 @@ class WorkerTargetTests(unittest.TestCase):
             result = worker.run_local_worker("[WINDOWS][EXEC] EU-01", str(self.repository), ["small.txt"], "change", target="windows-4070")
         self.assertEqual(result["status"], "unavailable")
         self.assertEqual((self.repository / "small.txt").read_text(encoding="utf-8"), "small\n")
+
+    def test_local_worker_has_no_default_task_timeout(self) -> None:
+        with patch.object(worker, "ollama_model_available", return_value=(True, "ready")):
+            with patch.object(worker.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, "done", "")) as run:
+                result = worker.run_local_worker(
+                    "[LOCAL][EXEC] EU-01", str(self.repository), ["small.txt"], "add a focused test",
+                )
+        self.assertEqual(result["status"], "success")
+        self.assertIsNone(run.call_args.kwargs["timeout"])
 
 
 if __name__ == "__main__":

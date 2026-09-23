@@ -9,4 +9,4 @@ Use the shared workflow-artifacts instructions and the project contract. Use the
 
 For a small task, the delivery contract may be brief, but must still make correctness and completion testable. Preserve scope and architecture. Distinguish explicit decisions from derived assumptions and identify blocking questions. Do not prescribe implementation tasks, agents, backend choices, or test code. Escalate contradictions or new product decisions rather than resolving them yourself.
 
-Self-check traceability, testability, version, location, and lineage. Request orchestrator validation and `READY_FOR_DECOMPOSITION`; do not force a transition or edit upstream artifacts.
+Self-check traceability, testability, version, location, and lineage. Request orchestrator validation and `READY_FOR_DECOMPOSITION` in delivery mode or `READY_FOR_EVALUATION_TEST` in evaluation mode; do not force a transition or edit upstream artifacts.
