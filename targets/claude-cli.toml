@@ -9,7 +9,7 @@ eligible_roles = ["intake_analyst", "problem_analyst", "solution_architect", "re
 capabilities = ["formal-stage-artifact-authoring", "architecture", "cross-service-analysis", "implementation", "testing", "independent-review"]
 permission_model = "Explicit Claude tool allowlist; Bash is artifact-stage-only and requires WORKFLOW_CLAUDE_ALLOW_BASH=true in an authorized prompt. Dispatcher verifies all changed paths after the run."
 turn_budget_policy = "No automatic turn cap. Usage, scope, and explicit human decisions govern continuation."
-health_check = "claude --version"
+health_check = "authenticated host-environment claude -p readiness check"
 availability_policy = "check-at-dispatch"
 capacity_policy = "one durable external worker; relay records bounded provider usage and stops new scheduling at the configured threshold"
 latency_class = "medium"
