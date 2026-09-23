@@ -34,6 +34,10 @@ python3 scripts/test_dispatch.py # dispatcher dry-run against mocked targets: sc
 
 ## Long-running dispatch and usage guard
 
+### Claude host authentication
+
+Claude's existing CLI login may be unavailable to a Codex workspace-sandboxed launcher. Before starting a `claude-cli` job, run a minimal `claude -p` readiness check with narrowly scoped elevated host access, then launch `scripts/dispatch.sh start` with the same access only when that check returns `READY`. The detached supervisor and any automatic session resume then inherit the authenticated host environment. Status, wait, and usage reads remain sandboxed. Do not copy credentials, override `HOME`, disable sandboxing globally, or approve a broad shell/Python prefix; worker scope audit remains in force.
+
 `scripts/dispatch.sh` runs every target as a supervised job. There is no turn limit.
 
 ```

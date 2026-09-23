@@ -9,7 +9,7 @@ Dispatch is mechanical. The Orchestration Plan or Routing Plan has already chose
 
 ## Start a job
 
-Write the task to a prompt file, append the scope markers below, then start a detached job from the shared workflow root:
+Write the task to a prompt file, append the scope markers below, then start a detached job from the shared workflow root. For `claude-cli`, first run `claude -p --output-format text 'Reply with exactly: READY'` through narrowly scoped elevated host access. This is an authentication preflight, not a stage call, and must not access project files. If it returns `READY`, run the `dispatch.sh start` command below with the same elevated host access so the detached supervisor can read the existing CLI login. Polling and status commands remain sandboxed. Do not copy credentials, change `HOME`, relax scope verification, or grant a broad shell/Python approval; if preflight fails, record the target unavailable and use only the plan-approved fallback.
 
 ```
 WORKFLOW_ROLE=<role> WORKFLOW_FALLBACK_CHAIN=<recorded,chain> \
@@ -34,7 +34,7 @@ There is no turn limit. A running job is stopped only when it produces no output
 
 ## Permissions
 
-The Claude target runs with the permission profile in `targets/claude-cli.toml`. The default `developer` profile lets it use Bash and the other registered tools freely and edit any file under the registered write roots (the Developer folder), so a run is not denied mid-way and usage is not wasted. Writes outside those roots are denied. The scope markers are then verified after the run: an edit outside the recorded scope is reported as `scope-violation` with the files listed, and nothing is reverted, so review it and decide. Edits outside the artifact and product repositories are not visible to that check. The `scoped` profile restricts edits and Bash to the exact scope and validation commands; it denies most real work, so use it only when a task must be tightly confined.
+The Claude target runs with the permission profile in `targets/claude-cli.toml`. The default `developer` profile lets it use Bash and the other registered tools freely and edit any file under the registered write roots (the Developer folder), so a run is not denied mid-way and usage is not wasted. Writes outside those roots are denied. The scope markers are then verified after the run: an edit outside the recorded scope is reported as `scope-violation` with the files listed, and nothing is reverted, so review it and decide. Edits outside the artifact and product repositories are not visible to that check. The `scoped` profile restricts edits and Bash to the exact scope and validation commands; it denies most real work, so use it only when a task must be tightly confined. Elevated host access is solely for the launcher to read its CLI login; it does not relax these worker scope checks.
 
 Permission denials appear in `status` as `permission_denials` with a warning. When a job reaches `max_permission_denials` (default 3) it stops as `permission-denied` (exit 7) rather than spending more usage. Read the denials, fix the permission or the task, and start a new job; do not retry unchanged.
 
