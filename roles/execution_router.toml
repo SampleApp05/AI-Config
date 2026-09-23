@@ -6,4 +6,4 @@ forbidden_actions = ["implement product changes", "override deterministic target
 
 [scope]
 stage = "router"
-instruction = "Evaluate each approved execution unit against the target registry and assignment rules. Record the selected target, rationale, availability condition, scope, fallback chain, and verified product PR route for every product-changing repository."
+instruction = "For a delivery run, evaluate each approved work unit against the target registry and assignment rules. Record eligible preferred and fallback target pools, rationale, availability conditions, scope, and verified product PR route. Leave actual executor choice to the fresh dispatch-time health and usage check."

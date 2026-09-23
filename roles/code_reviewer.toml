@@ -6,4 +6,4 @@ forbidden_actions = ["edit product files", "approve gates", "merge changes", "pe
 
 [scope]
 stage = "review"
-instruction = "Review completed work against approved requirements and test evidence. Report actionable defects and residual risk without changing product or workflow state."
+instruction = "Independently review delivery work or the existing evaluation baseline against approved requirements and Test evidence. Prefer the opposite cloud engine from the implementer. Report actionable defects, gaps, and residual risk without changing product or workflow state."

@@ -187,7 +187,7 @@ def main() -> int:
                 if not source_path.is_file() or digest(source_path) != record["sha256"]:
                     failures.append(f"manifest source drift: {source}")
 
-    for version in ("ARTIFACT-CONTRACT-v1.md", "ARTIFACT-CONTRACT-v1.1.md"):
+    for version in ("ARTIFACT-CONTRACT-v1.md", "ARTIFACT-CONTRACT-v1.1.md", "ARTIFACT-CONTRACT-v1.2.md"):
         shared = SHARED_ROOT / "contract" / version
         asset = CODEX_ROOT / "skills" / "workflow-artifacts" / "assets" / version
         project = ATRA_ARTIFACT_ROOT / version

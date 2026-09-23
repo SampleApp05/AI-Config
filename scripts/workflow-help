@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""Show the active workflow agent catalog and role preferences."""
+
+from __future__ import annotations
+
+import ast
+import json
+from pathlib import Path
+import sys
+
+
+ROOT = Path("/Users/danielvelikov/.codex/AI-Workflow")
+TARGETS = ROOT / "targets"
+
+
+def read_simple_toml(path: Path) -> dict:
+    """Read the scalar and string-list fields used by the workflow registry."""
+
+    result: dict = {}
+    section = result
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            section = result.setdefault(line[1:-1], {})
+            continue
+        if "=" not in line:
+            continue
+        name, value = (part.strip() for part in line.split("=", 1))
+        if value in ("true", "false"):
+            section[name] = value == "true"
+        else:
+            section[name] = ast.literal_eval(value)
+    return result
+
+
+def catalog() -> dict:
+    rules = read_simple_toml(TARGETS / "stage-assignment-rules.toml")
+    targets = {
+        target["id"]: target
+        for path in sorted(TARGETS.glob("*.toml"))
+        if path.name != "stage-assignment-rules.toml"
+        for target in [read_simple_toml(path)]
+    }
+    return {"targets": targets, "rules": rules}
+
+
+def print_catalog(data: dict) -> None:
+    print("Workflow agents")
+    for target_id, target in data["targets"].items():
+        print(f"  {target_id:16} {target['display_name']}  ({target['invocation']})")
+    print("\nPreferred stage owners")
+    for role, choices in data["rules"]["role_preferences"].items():
+        print(f"  {role:22} {' → '.join(choices)}")
+    preferred_roles = set(data["rules"]["role_preferences"])
+    other_roles = sorted({role for target in data["targets"].values() for role in target.get("eligible_roles", [])} - preferred_roles)
+    if other_roles:
+        print("\nWork-unit roles")
+        for role in other_roles:
+            eligible = [target_id for target_id, target in data["targets"].items() if role in target.get("eligible_roles", [])]
+            print(f"  {role:22} {', '.join(eligible)}")
+    print("\nModes: " + ", ".join(data["rules"]["workflow_modes"]))
+    print("\nWork units: actual executor selected at dispatch from the approved pool.")
+    print("Review: independent cloud engine, preferably opposite the implementer.")
+    print("Usage: workflow-help [agent-id | role-id | --json]")
+
+
+def main(argv: list[str]) -> int:
+    data = catalog()
+    if len(argv) == 1:
+        print_catalog(data)
+        return 0
+    if len(argv) != 2:
+        print("Usage: workflow-help [agent-id | role-id | --json]", file=sys.stderr)
+        return 2
+    if argv[1] == "--json":
+        print(json.dumps(data, indent=2, sort_keys=True))
+        return 0
+    if argv[1] in ("--help", "-h"):
+        print_catalog(data)
+        return 0
+    target = data["targets"].get(argv[1])
+    if target is None:
+        role = argv[1]
+        eligible = [target_id for target_id, candidate in data["targets"].items() if role in candidate.get("eligible_roles", [])]
+        if eligible:
+            print(f"Role: {role}")
+            preferred = data["rules"]["role_preferences"].get(role)
+            print("preferred: " + " → ".join(preferred) if preferred else "selection: at dispatch from the approved pool")
+            print("eligible: " + ", ".join(eligible))
+            print("Actual target is subject to approved scope, health, usage, and independence checks.")
+            return 0
+        print(f"Unknown agent or role: {role}", file=sys.stderr)
+        return 2
+    print(f"{target['display_name']} ({target['id']})")
+    for field in ("engine", "invocation", "workspace_host", "inference_host", "model", "ollama_base_url", "availability_policy", "health_check"):
+        if field in target:
+            print(f"{field}: {target[field]}")
+    print("roles: " + ", ".join(target.get("eligible_roles", [])))
+    print("capabilities: " + ", ".join(target.get("capabilities", [])))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

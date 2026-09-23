@@ -29,10 +29,10 @@ def run_local_worker(
     repository: str,
     allowed_files: list[str],
     prompt: str,
-    timeout_seconds: int = 900,
+    timeout_seconds: int | None = None,
     target: str = "mac-ollama",
 ) -> dict:
-    """Run one bounded target using an approved repository-relative file allowlist."""
+    """Run one bounded target using an approved file allowlist; no default task timeout."""
     return _run_local_worker(label, repository, allowed_files, prompt, timeout_seconds, target)
 
 

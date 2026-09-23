@@ -85,14 +85,14 @@ def run_local_worker(
     repository: str,
     allowed_files: list[str],
     prompt: str,
-    timeout_seconds: int = 900,
+    timeout_seconds: int | None = None,
     target: str = "mac-ollama",
 ) -> dict:
     target_record = target_config(target)
     if not label.startswith(target_record["label_prefix"]):
         raise ValueError(f"label must start with {target_record['label_prefix']}")
-    if not isinstance(timeout_seconds, int) or not 30 <= timeout_seconds <= 3600:
-        raise ValueError("timeout_seconds must be between 30 and 3600")
+    if timeout_seconds is not None and (not isinstance(timeout_seconds, int) or timeout_seconds <= 0):
+        raise ValueError("timeout_seconds must be positive when explicitly approved")
     if not isinstance(prompt, str) or not prompt.strip():
         raise ValueError("prompt must be non-empty")
     repo = Path(repository).resolve()

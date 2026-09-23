@@ -1,0 +1,22 @@
+schema_version = 1
+id = "codex-native"
+engine = "codex"
+display_name = "Native Codex subagent"
+invocation = "native Codex subagent tools"
+workspace_host = "mac"
+inference_host = "openai"
+eligible_roles = ["intake_analyst", "problem_analyst", "solution_architect", "requirements_engineer", "work_planner", "execution_router", "execution_coordinator", "implementation_worker", "test_engineer", "code_reviewer", "workflow_orchestrator"]
+capabilities = ["orchestration", "formal-stage-artifact-authoring", "requirements", "routing", "infrastructure", "implementation", "testing", "independent-review"]
+permission_model = "Native Codex subagent with assigned file scope; orchestrator validates the actual diff and Git state."
+health_check = "native agent availability and a fresh Codex usage read"
+availability_policy = "check-at-dispatch"
+capacity_policy = "native subagent capacity and fresh Codex usage guard"
+latency_class = "medium"
+cost_class = "account-managed"
+default_fallback_chain = []
+label_prefix = "[CODEX]"
+
+[hard_limits]
+max_files = 100
+max_context_bytes = 800000
+max_prompt_chars = 100000
